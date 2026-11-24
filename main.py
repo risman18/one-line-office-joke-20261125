@@ -26,6 +26,13 @@ ENTRY = (
 
 
 def main() -> None:
+    # Competition rule: the entry must be exactly one line of 1-200
+    # characters. Enforce it here so a future wording change that broke
+    # the limit would fail loudly instead of submitting an invalid entry.
+    assert 1 <= len(ENTRY) <= 200, (
+        f"entry is {len(ENTRY)} characters, must be 1-200"
+    )
+    assert "\n" not in ENTRY, "entry must be a single line"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(ENTRY + "\n")
